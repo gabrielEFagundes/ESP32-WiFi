@@ -1,11 +1,11 @@
 // incluindo bibliotecas
-#include <Esp32WifiManager.h>
+#include <WiFi.h>
 #include <PubSubClient.h>
 
 // acesso wifi
-const char* ssid = "cuba"; // sua internet
-const char* password = "87654321"; // senha da sua internet
-const char* mqtt_server = "test.mosquitto.org"; // server mqtt
+const char* ssid = ""; // sua net
+const char* password = ""; // senha da sua net
+const char* mqtt_server = "broker.hivemq.com"; // server mqtt
 
 // "objetos"
 WiFiClient WOKWI_client; // cria um objeto cliente wifi para comunicação
@@ -72,6 +72,14 @@ void broker_on(){
   }
 }
 
+void send_data(){ // envio de dados
+  int value = analogRead(34);
+  Serial.println(value);
+  // publicando dados com o publish
+  client.publish("fagundinho123", String(value).c_str());
+  delay(1000);
+}
+
 void setup(){
   pinMode(2, OUTPUT);
   pinMode(15, OUTPUT);
@@ -86,6 +94,8 @@ void setup(){
 void loop(){
   client.loop();
   reconnect_MQTT(); // mantém ativa a conexão MQTT
+
+  send_data();
 
   wifi_on();
   broker_on();
