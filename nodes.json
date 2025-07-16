@@ -1,0 +1,104 @@
+[
+    {
+        "id": "0e7c3b76f0b3f516",
+        "type": "tab",
+        "label": "Fluxo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "0e8982b28c064736",
+        "type": "mysql",
+        "z": "0e7c3b76f0b3f516",
+        "mydb": "0dddb41b8246f8b0",
+        "name": "potenciometro_database",
+        "x": 870,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1fa4dcbbcd704526",
+        "type": "mqtt in",
+        "z": "0e7c3b76f0b3f516",
+        "name": "pot_input",
+        "topic": "fagundinho123",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "0dfdff11773f1cac",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 360,
+        "y": 240,
+        "wires": [
+            [
+                "6a8beb13af3706e1"
+            ]
+        ]
+    },
+    {
+        "id": "6a8beb13af3706e1",
+        "type": "function",
+        "z": "0e7c3b76f0b3f516",
+        "name": "insert_data",
+        "func": "var lux = msg.payload;\nmsg.topic = `INSERT INTO potenciometro_data (lux) VALUES (${lux})`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 240,
+        "wires": [
+            [
+                "0e8982b28c064736"
+            ]
+        ]
+    },
+    {
+        "id": "0dddb41b8246f8b0",
+        "type": "MySQLdatabase",
+        "name": "Fagundes",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "potenciometro_db",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "0dfdff11773f1cac",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.hivemq.com",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]

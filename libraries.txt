@@ -1,0 +1,3 @@
+WiFi
+PubSubClient
+# DHT22 (not using)
